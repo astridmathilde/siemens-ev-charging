@@ -1,0 +1,59 @@
+ :root {
+   color-scheme: dark;
+ 
+   --bg0: #070b10;
+   --bg1: #0a1119;
+   --bg2: #0c1620;
+ 
+   --card: #0b1926;
+   --card2: #0a1520;
+   --border: rgba(255, 255, 255, 0.08);
+ 
+   --text: rgba(255, 255, 255, 0.88);
+   --muted: rgba(255, 255, 255, 0.62);
+   --faint: rgba(255, 255, 255, 0.42);
+ 
+   --accent: #35d1ff;
+   --accent2: #49a6ff;
+ 
+   --shadow: 0 16px 50px rgba(0, 0, 0, 0.45);
+ 
+   --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+   --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+ 
+   --radiusLg: 28px;
+   --radiusMd: 18px;
+   --radiusSm: 12px;
+ }
+ 
+ html,
+ body {
+   height: 100%;
+ }
+ 
+ body {
+   margin: 0;
+   font-family: var(--sans);
+   color: var(--text);
+   background: radial-gradient(1200px 800px at 50% -10%, rgba(53, 209, 255, 0.08), transparent 60%),
+     radial-gradient(800px 600px at 80% 10%, rgba(73, 166, 255, 0.06), transparent 55%),
+     linear-gradient(180deg, var(--bg0), var(--bg1));
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+ }
+ 
+ * {
+   box-sizing: border-box;
+ }
+ 
+ button,
+ input,
+ select,
+ textarea {
+   font: inherit;
+   color: inherit;
+ }
+ 
+ a {
+   color: inherit;
+ }
