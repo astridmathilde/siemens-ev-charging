@@ -44,7 +44,6 @@
        >
          <div className="chargingScreen">
            <div className="chargingHeader">
-             <div className="chargingHeaderTop">CHARGING (mobile)</div>
              <div className="chargingPct">{Math.round(inputs.batteryPct)}%</div>
            </div>
  
@@ -63,7 +62,7 @@
  
              <div className="smallCards">
                <div className="smallCard">
-                 <div className="smallCardLabel">Estimated time</div>
+                 <div className="smallCardLabel">Time remaining</div>
                  <div className="smallCardValue">{derived.estimatedTime}</div>
                  <div className="smallCardHelp">{derived.estimatedTimeHelp}</div>
                </div>

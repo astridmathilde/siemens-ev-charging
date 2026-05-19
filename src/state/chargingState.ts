@@ -25,7 +25,7 @@
  
    if (taper > 0.65 && baseIntensity > 0.35) return 'Limited'
    if (constrained && baseIntensity > 0.25) return 'Reduced'
-   if (baseIntensity < 0.18) return 'Slow'
+   if (baseIntensity < 0.18) return 'Reduced'
    if (baseIntensity > 0.78) return 'Fast'
    return 'Optimal'
  }
@@ -33,12 +33,10 @@
  function explanationFor(inputs: ChargingInputs, title: ChargingStateTitle, taper: number) {
    if (inputs.explanationMode === 'manual') return inputs.manualExplanation?.trim() || undefined
  
-   if (inputs.temperature === 'cold') return 'Charging is slower because the battery is cold.'
-   if (inputs.powerSharing === 'shared') return 'Speed is reduced because power is shared with other cars.'
-   if (taper > 0.4) return 'Charging slows down near and after 80%.'
- 
-   if (title === 'Fast') return 'Charging is currently at a high rate.'
-   if (title === 'Slow') return 'Charging is currently at a low rate.'
+   if (inputs.temperature === 'cold') return 'The battery is cold. Charging with reduced power until battery reaches normal temperature. '
+   if (inputs.powerSharing === 'shared') return 'The charging power is shared between you and another vehicle.'
+   if (taper > 0.4) return 'Charging slows down near 80 %.'
+
    return undefined
  }
  
@@ -78,12 +76,12 @@
  
    // Lightweight “fake” secondary cards; keep stable for motion exploration.
    const minutes = Math.round(lerp(55, 14, clamp01(inputs.kw / 320)) + lerp(0, 18, taper))
-   const estimatedTime = `${minutes} minutes`
-   const estimatedTimeHelp = inputs.batteryPct >= 100 ? 'Fully charged' : 'Until full'
+   const estimatedTime = `~${minutes} minutes`
+   const estimatedTimeHelp = inputs.batteryPct >= 80 ? 'Fully charged' : 'Until 80%'
  
    const cost = COST.nokPerKwh * COST.sessionKwhEstimate * clamp01(lerp(0.65, 1.15, motionDerived.intensity))
    const estimatedCost = `${cost.toFixed(2).replace('.', ',')} NOK`
-   const estimatedCostHelp = `${COST.nokPerKwh.toFixed(2).replace('.', ',')} per kWh`
+   const estimatedCostHelp = `${COST.nokPerKwh.toFixed(2).replace('.', ',')} NOK per minute`
  
    const summary = `${title} / ${inputs.temperature} / ${inputs.powerSharing} / ${Math.round(inputs.kw)} kW`
  
