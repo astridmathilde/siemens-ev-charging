@@ -3,7 +3,7 @@
  import type { ChargingInputs, DerivedChargingState } from '../state/types'
  import { ChargingSpeedCard } from './ChargingSpeedCard'
  
- export function ChargingScreenPreview(props: {
+ export function MobilePreview(props: {
    label?: string
    viewport: 'mobile' | 'medium' | 'large'
    inputs: ChargingInputs
@@ -44,7 +44,7 @@
        >
          <div className="chargingScreen">
            <div className="chargingHeader">
-             <div className="chargingHeaderTop">CHARGING (station)</div>
+             <div className="chargingHeaderTop">CHARGING (mobile)</div>
              <div className="chargingPct">{Math.round(inputs.batteryPct)}%</div>
            </div>
  
@@ -76,7 +76,7 @@
  
              <div className="chargingFooter">
                <button type="button" className="footerLink">
-                 Follow on mobile
+                 View details
                </button>
                <button type="button" className="footerPrimary">
                  Stop charging

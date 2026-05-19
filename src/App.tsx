@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { ChargingScreenPreview } from './components/ChargingScreenPreview'
+import { MobilePreview } from './components/MobilePreview'
 import { ControlPanel } from './components/ControlPanel'
 import type { MotionModeId } from './motion/types'
 import { DEFAULT_MOTION_PARAMS } from './motion/params'
@@ -9,6 +10,7 @@ import { DEFAULT_INPUTS } from './state/constants'
 import type { ChargingInputs } from './state/types'
 
 export default function App() {
+  const [viewMode, setViewMode] = useState<'station' | 'mobile'>('station')
   const [viewport, setViewport] = useState<'mobile' | 'medium' | 'large'>('medium')
   const [compareEnabled, setCompareEnabled] = useState(false)
   const [motionEnabled, setMotionEnabled] = useState(true)
@@ -28,6 +30,9 @@ export default function App() {
 
   const derivedA = useMemo(() => deriveChargingState(inputsA), [inputsA])
   const derivedB = useMemo(() => deriveChargingState(inputsB), [inputsB])
+
+  // Select component dynamically based on setup controls
+  const PreviewComponent = viewMode === 'station' ? ChargingScreenPreview : MobilePreview
 
   return (
     <div className="appRoot">
@@ -88,6 +93,8 @@ export default function App() {
       <div className="appBody">
         <aside className="panel">
           <ControlPanel
+            viewMode={viewMode}
+            onViewModeChange={setViewMode}
             mode={mode}
             onModeChange={setMode}
             motionParams={motionParams}
@@ -106,7 +113,7 @@ export default function App() {
 
         <main className="stage">
           <div className={compareEnabled ? 'previewGrid isCompare' : 'previewGrid'}>
-            <ChargingScreenPreview
+            <PreviewComponent
               label="A"
               viewport={viewport}
               inputs={inputsA}
@@ -117,7 +124,7 @@ export default function App() {
               seed={seed}
             />
             {compareEnabled ? (
-              <ChargingScreenPreview
+              <PreviewComponent
                 label="B"
                 viewport={viewport}
                 inputs={inputsB}
